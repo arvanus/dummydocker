@@ -21,16 +21,16 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: debuginfo
-      run: echo {{github.sha}}
+      run: echo {{ github.sha }}
     - name: Build the Docker image
-      #run: docker build . --file Dockerfile --tag ${{ env.IMAGE_NAME }}:{{GITHUB_SHA}} --tag ${{ env.IMAGE_NAME }}:latest
+      #run: docker build . --file Dockerfile --tag ${{ env.IMAGE_NAME }}:{{ github.sha }} --tag ${{ env.IMAGE_NAME }}:latest
       run: docker build . --file Dockerfile --tag ${{ env.IMAGE_NAME }}:latest
     - name: docker login
-      run: docker login -u ${{ github.actor }} -p ${{ secrets.DOCKERHUB_TOKEN }} {{env.REGISTRY}}
+      run: docker login -u ${{ github.actor }} -p ${{ secrets.DOCKERHUB_TOKEN }} {{ env.REGISTRY }}
     - name: docker push latest
-      run: docker push --quiet {{env.REGISTRY}}{{env.IMAGE_NAME}}:latest
-    #- name: docker push hash
-      #run: docker push --quiet {{env.REGISTRY}}{{env.IMAGE_NAME}}:{{GITHUB_SHA}}
+      run: docker push --quiet {{ env.REGISTRY }}{{ env.IMAGE_NAME }}:latest
+    - name: docker push hash
+      run: docker push --quiet {{ env.REGISTRY }}{{ env.IMAGE_NAME }}:{{ github.sha }}
       
       
       
