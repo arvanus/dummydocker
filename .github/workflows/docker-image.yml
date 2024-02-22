@@ -21,7 +21,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: debuginfo
-      run: echo {{ github.sha }}
+      run: echo {{ github.sha }} {{ env.REGISTRY }}
     - name: Build the Docker image
       #run: docker build . --file Dockerfile --tag ${{ env.IMAGE_NAME }}:{{ github.sha }} --tag ${{ env.IMAGE_NAME }}:latest
       run: docker build . --file Dockerfile --tag ${{ env.IMAGE_NAME }}:latest
